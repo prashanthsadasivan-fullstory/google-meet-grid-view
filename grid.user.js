@@ -36,7 +36,6 @@
         sourceCode: 'Codi font disponible a Github',
         screenCaptureMode: 'Activar mode de captura',
         screenCaptureModeDescription: 'Força 16:9, desactiva els noms, bloqueja vídeos al seu lloc',
-        unauthorizedWarning: "ATENCIÓ: es tracta d'una extensió no autoritzada. Instal·leu l'extensió oficial fent clic aquí.",
       },
       da: {
         showOnlyVideo: 'Vis kun deltagere med video',
@@ -49,7 +48,6 @@
         sourceCode: 'Kildekoden er tilgøngelig på Github',
         screenCaptureMode: 'Aktiver skærmoptager',
         screenCaptureModeDescription: 'Gennemtvinger 16:9, Deaktiverer navne, Låser video-positioner',
-        unauthorizedWarning: 'Advarsel: Dette er ikke en autoriseret tilføjelse. Installer venligst den officielle, ved at klikke her.',
       },
       de: {
         showOnlyVideo: 'Nur Teilnehmer mit Video anzeigen',
@@ -62,7 +60,6 @@
         sourceCode: 'Der Quellcode ist auf Github zugänglich',
         screenCaptureMode: 'Aktiviere Bildschirmaufnahme Modus',
         screenCaptureModeDescription: 'Erwingt 16:9, entfernt Namen, fixiert Video Position',
-        unauthorizedWarning: 'WARNUNG: Dieses ist eine nicht autorisiert Erweiterung. Bitte installieren Sie die offizielle Version, klicken Sie dafür hier.',
       },
       en: {
         showOnlyVideo: 'Only show participants with video',
@@ -75,7 +72,6 @@
         sourceCode: 'Source Code available on Github',
         screenCaptureMode: 'Enable Screen Capture Mode',
         screenCaptureModeDescription: 'Forces 16:9, Disables names, Locks videos in place',
-        unauthorizedWarning: 'WARNING: This is an unauthorized extension. Please install the official release by clicking here.',
       },
       es: {
         showOnlyVideo: 'Mostrar solo participantes con vídeo',
@@ -88,7 +84,6 @@
         sourceCode: 'Código fuente disponible en Github',
         screenCaptureMode: 'Habilitar modo captura de pantalla',
         screenCaptureModeDescription: 'Forzar 16:9, deshabilita nombres, fija el vídeo en su lugar',
-        unauthorizedWarning: 'ATENCIÓN: Esta es una extensión no autorizada. Por favor, instale la versión oficial haciendo clic aquí.',
       },
       fr: {
         showOnlyVideo: 'Ne montrer que les participants avec caméra',
@@ -101,7 +96,6 @@
         sourceCode: 'Code source disponible sur Github',
         screenCaptureMode: "Activer le mode capture d'écran",
         screenCaptureModeDescription: "Force l'affichage 16:9, désactive les noms, vérrouille les positions des vidéos",
-        unauthorizedWarning: "ATTENTION : Il s'agit d'une extension non autorisée. Installez la version officielle en cliquant ici.",
       },
       hr: {
         showOnlyVideo: 'Prikaži samo sudionike sa kamerom',
@@ -119,7 +113,6 @@
         sourceCode: 'Il codice sorgente è disponibile su Github',
         screenCaptureMode: 'Attiva la modalià registrazione della schermata',
         screenCaptureModeDescription: 'Forza 16:9, Disattiva i nomi, Blocca i video nella posizione',
-        unauthorizedWarning: 'ATTENZIONE: Questa estensione non è autorizzata. Installa la versione ufficiale cliccando qua.',
       },
       ja: {
         showOnlyVideo: 'カメラをオンにしている参加者のみ',
@@ -157,7 +150,6 @@
         sourceCode: 'Código fonte disponível no Github',
         screenCaptureMode: 'Ativar captura de ecrã',
         screenCaptureModeDescription: 'Forçar aspeto 16:9, Remover nomes, Parar posição dos vídeos',
-        unauthorizedWarning: 'ATENÇÃO: Esta é uma extensão não autorizada. Por favor, clique aqui para instalar a versão oficial.',
       },
       'pt-BR': {
         showOnlyVideo: 'Mostrar somente participantes com vídeo',
@@ -170,7 +162,6 @@
         sourceCode: 'Código fonte disponível no Github',
         screenCaptureMode: 'Habilitar captura de tela',
         screenCaptureModeDescription: 'Forçar aspecto 16:9, Desabilitar nomes, Travar posição dos vídeos',
-        unauthorizedWarning: 'ATENÇÃO: Esta é uma extensão não autorizada. Por favor, instale a versão oficial clicando aqui.',
       },
       sv: {
         showOnlyVideo: 'Visa endast deltagare med video',
@@ -183,7 +174,6 @@
         sourceCode: 'Källkod tillgänglig på Github',
         screenCaptureMode: 'Slå på skärminspelnings läge',
         screenCaptureModeDescription: 'Tvingar 16:9, Inaktiverar namn, Låser videor på plats',
-        unauthorizedWarning: 'VARNING: Detta är inte ett auktoriserat tillägg. Installera det officiella tillägget genom att klicka här.',
       },
       uk: {
         showOnlyVideo: 'Показати лише учасників з відео',
@@ -423,12 +413,6 @@
 
     // Make the button to perform the toggle
     // This runs on a loop since you can join/leave the meeting repeatedly without changing the page
-    const authorized =
-      (document.currentScript && document.currentScript.src.startsWith('https://cdn.jsdelivr.net/gh/Fugiman/google-meet-grid-view/grid.user.')) || // v1.19
-      (document.currentScript && document.currentScript.src === 'chrome-extension://kklailfgofogmmdlhgmjgenehkjoioip/grid.user.js') || // Chrome
-      (document.currentScript && document.currentScript.src === 'chrome-extension://ogbbehbkcmdciebilbkpjgopohnpfolj/grid.user.js') || // Microsoft
-      (document.currentScript && document.currentScript.src.startsWith('moz-extension://')) || // Firefox regenerates the URL for each browser, so we can't detect if it's valid :(
-      (typeof GM !== 'undefined' && GM && GM.info && GM.info.script && GM.info.script.namespace === 'https://fugi.tech/') // user script
     let firstRun = true
     setInterval(() => {
       // Find the UI elements we need to modify. If they don't exist we haven't entered the meeting yet and will try again later
@@ -532,15 +516,6 @@
         screenCaptureModeS.innerText = T('screenCaptureModeDescription')
         screenCaptureModeL.append(screenCaptureModeS)
         additionalOptions.appendChild(screenCaptureModeL)
-
-        const unauthorizedWarningA = document.createElement('a')
-        unauthorizedWarningA.target = '_blank'
-        unauthorizedWarningA.href = 'https://github.com/Fugiman/google-meet-grid-view'
-        unauthorizedWarningA.innerText = T('unauthorizedWarning')
-        if (!authorized) {
-          additionalOptions.appendChild(document.createElement('hr'))
-          additionalOptions.appendChild(unauthorizedWarningA)
-        }
 
         updateScreenCaptureMode(screenCaptureMode)
       }
