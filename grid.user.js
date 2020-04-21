@@ -17,23 +17,6 @@
   ) {
     // If imported, export the translation factory
     window.TranslationFactory = TranslationFactory
-  } else if (document.currentScript && document.currentScript.src === 'https://cdn.jsdelivr.net/gh/Fugiman/google-meet-grid-view/grid.user.min.js') {
-    // We're running the cached CDN version, load the uncached version (rotates hourly)
-    const s = document.createElement('script')
-    s.src = 'https://cdn.jsdelivr.net/gh/Fugiman/google-meet-grid-view/grid.user.js?t=' + Math.floor(new Date() / 3600000)
-    s.setAttribute('nonce', window._F_getIjData().csp_nonce)
-    document.body.appendChild(s)
-  } else if (typeof unsafeWindow !== 'undefined') {
-    // If running in a sandbox, break out of the sandbox
-    const scriptData = `(function(){
-      Main();
-      ${TranslationFactory.toString()};
-      ${Main.toString()};
-    })()`
-
-    const s = document.createElement('script')
-    s.src = URL.createObjectURL(new Blob([scriptData], { type: 'text/javascript' }))
-    document.body.appendChild(s)
   } else {
     // Otherwise we're running as an unsandboxed user script
     // and we should just do the thing
